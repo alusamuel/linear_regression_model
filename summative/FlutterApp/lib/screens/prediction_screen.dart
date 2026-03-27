@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../config.dart';
 import '../models/prediction_request.dart';
 import '../services/prediction_service.dart';
 import '../widgets/prediction_form_card.dart';
@@ -103,13 +102,16 @@ class _PredictionScreenState extends State<PredictionScreen> {
       _showMessage(
         'Prediction completed successfully based on the submitted student profile.',
       );
+      await _showResultDialog();
     } on PredictionException catch (error) {
       _showMessage(error.message, isError: true);
+      await _showResultDialog();
     } catch (_) {
       _showMessage(
         'Could not reach the API. Check API_BASE_URL and ensure the server is running.',
         isError: true,
       );
+      await _showResultDialog();
     } finally {
       if (mounted) {
         setState(() {
@@ -117,6 +119,59 @@ class _PredictionScreenState extends State<PredictionScreen> {
         });
       }
     }
+  }
+
+  Future<void> _showResultDialog() async {
+    if (!mounted) {
+      return;
+    }
+
+    await showGeneralDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      barrierLabel: 'Prediction result',
+      barrierColor: const Color(0x99112312),
+      transitionDuration: const Duration(milliseconds: 320),
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return SafeArea(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 420),
+                child: Material(
+                  color: Colors.transparent,
+                  child: ResultCard(
+                    message: _message,
+                    isError: _isError,
+                    predictedSalary: _predictedSalary,
+                    salaryUnit: _salaryUnit,
+                    cgpa: _submittedCgpa,
+                    internships: _submittedInternships,
+                    placed: _submittedPlaced,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        final curved = CurvedAnimation(
+          parent: animation,
+          curve: Curves.easeOutBack,
+          reverseCurve: Curves.easeIn,
+        );
+
+        return FadeTransition(
+          opacity: animation,
+          child: ScaleTransition(
+            scale: Tween<double>(begin: 0.82, end: 1.0).animate(curved),
+            child: child,
+          ),
+        );
+      },
+    );
   }
 
   void _showMessage(String value, {bool isError = false}) {
@@ -163,19 +218,9 @@ class _PredictionScreenState extends State<PredictionScreen> {
                   placedController: _placedController,
                   isLoading: _isLoading,
                   onPredict: _predict,
-                  apiEndpoint: '$apiBaseUrl/predict',
                   onPlacedSelected: (value) {
                     _placedController.text = value;
                   },
-                  resultCard: ResultCard(
-                    message: _message,
-                    isError: _isError,
-                    predictedSalary: _predictedSalary,
-                    salaryUnit: _salaryUnit,
-                    cgpa: _submittedCgpa,
-                    internships: _submittedInternships,
-                    placed: _submittedPlaced,
-                  ),
                 ),
               ),
             ),

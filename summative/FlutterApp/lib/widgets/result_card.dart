@@ -26,22 +26,63 @@ class ResultCard extends StatelessWidget {
     final hasPrediction = !isError && predictedSalary != null;
 
     return Container(
-      padding: const EdgeInsets.all(18),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: isError
             ? const Color(0xFFFFF1F2)
             : const Color(0xFFEEF8F5),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(24),
         border: Border.all(
           color: isError
               ? const Color(0xFFF4B7BE)
               : const Color(0xFFB8E0D6),
         ),
+        boxShadow: hasPrediction
+            ? const [
+                BoxShadow(
+                  color: Color(0x140F766E),
+                  blurRadius: 20,
+                  offset: Offset(0, 10),
+                ),
+              ]
+            : null,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
+          Row(
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: isError
+                      ? const Color(0xFFFFDCE1)
+                      : const Color(0xFFDDF7F0),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  isError ? Icons.error_outline : Icons.auto_graph,
+                  color: isError
+                      ? const Color(0xFFB42333)
+                      : const Color(0xFF0F766E),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  isError ? 'Prediction Error' : 'Prediction Result',
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w800,
+                    color: const Color(0xFF12312C),
+                  ),
+                ),
+              ),
+            ],
+          ),
           if (hasPrediction) ...[
+            const SizedBox(height: 18),
             Text(
               'Estimated Salary',
               style: theme.textTheme.labelLarge?.copyWith(
@@ -68,8 +109,8 @@ class ResultCard extends StatelessWidget {
                 if (placed != null) _InfoChip(label: 'Placed', value: placed!),
               ],
             ),
-            const SizedBox(height: 14),
           ],
+          const SizedBox(height: 16),
           Text(
             message,
             style: theme.textTheme.bodyLarge?.copyWith(

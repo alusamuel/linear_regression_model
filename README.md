@@ -7,8 +7,8 @@ This project provides a salary prediction API and a mobile app for simple access
 It combines a FastAPI backend with a Flutter mobile interface.
 
 ## Public API Endpoint
-- Base URL: ``
-- Swagger UI: ``
+- Base URL: `https://linearregressionmodel-production-573f.up.railway.app`
+- Swagger UI: `https://linearregressionmodel-production-573f.up.railway.app/docs`
 - Prediction endpoint: `POST /predict`
 
 Sample prediction request body:
@@ -84,7 +84,7 @@ cd summative\FlutterApp
 
 3. Run the app against your public API:
 ```powershell
-flutter run --dart-define=API_BASE_URL=
+flutter run --dart-define=API_BASE_URL=https://linearregressionmodel-production-573f.up.railway.app
 ```
 
 4. If you are testing locally on an Android emulator:

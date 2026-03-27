@@ -8,8 +8,6 @@ class PredictionFormCard extends StatelessWidget {
     required this.placedController,
     required this.isLoading,
     required this.onPredict,
-    required this.apiEndpoint,
-    required this.resultCard,
     required this.onPlacedSelected,
   });
 
@@ -18,8 +16,6 @@ class PredictionFormCard extends StatelessWidget {
   final TextEditingController placedController;
   final bool isLoading;
   final VoidCallback onPredict;
-  final String apiEndpoint;
-  final Widget resultCard;
   final ValueChanged<String> onPlacedSelected;
 
   @override
@@ -161,16 +157,7 @@ class PredictionFormCard extends StatelessWidget {
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
-                      ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            resultCard,
-            const SizedBox(height: 18),
-            Text(
-              'API endpoint: $apiEndpoint',
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: const Color(0xFF6A7E79),
+                ),
               ),
             ),
           ],

@@ -16,12 +16,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.linear_model import SGDRegressor
 
 BASE_DIR = Path(__file__).resolve().parent
-MODEL_PATH = Path(
-    os.getenv(
-        "MODEL_PATH",
-        str(BASE_DIR.parent / "linear_regression" / "best_salary_model.joblib"),
-    )
-)
+MODEL_PATH = BASE_DIR / "best_salary_model.joblib"
 
 model = None
 model_load_error = None
