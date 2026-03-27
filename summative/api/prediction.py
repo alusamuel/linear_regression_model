@@ -1,5 +1,6 @@
 # API/prediction.py
 
+import os
 from pathlib import Path
 from typing import Literal
 
@@ -15,7 +16,12 @@ from sklearn.pipeline import Pipeline
 from sklearn.linear_model import SGDRegressor
 
 BASE_DIR = Path(__file__).resolve().parent
-MODEL_PATH = BASE_DIR.parent / "linear_regression" / "best_salary_model.joblib"
+MODEL_PATH = Path(
+    os.getenv(
+        "MODEL_PATH",
+        str(BASE_DIR.parent / "linear_regression" / "best_salary_model.joblib"),
+    )
+)
 
 model = None
 model_load_error = None
@@ -31,7 +37,11 @@ app = FastAPI(
     version="1.0.0",
 )
 
-origins = ["*"]
+origins = [
+    origin.strip()
+    for origin in os.getenv("ALLOW_ORIGINS", "*").split(",")
+    if origin.strip()
+]
 
 app.add_middleware(
     CORSMiddleware,
