@@ -56,6 +56,7 @@ linear_regression_model/
     |   `-- prediction.py
     |-- linear_regression/
     |   |-- best_salary_model.joblib
+    |   |-- Placement.csv
     |   `-- multivariate.ipynb
     `-- FlutterApp/
         |-- lib/
