@@ -1,5 +1,93 @@
-## My Mission
+# Student Salary Prediction
 
-My mission is to make education accessible to all students by removing barriers to learning and opportunity. 
-Many students struggle to access quality resources and guidance needed to succeed. This gap limits their skills and reduces their chances of getting meaningful jobs. 
-I aim to bridge this gap by providing accessible learning and pathways to employment.
+## Mission And Problem
+The goal of this project is to help students understand how academic performance and internship experience relate to salary outcomes.  
+Many students do not have accessible tools that connect their academic progress to employability.  
+This project provides a salary prediction API and a mobile app for simple access to those insights.  
+It combines a FastAPI backend with a Flutter mobile interface.
+
+## Public API Endpoint
+- Base URL: ``
+- Swagger UI: ``
+- Prediction endpoint: `POST /predict`
+
+Sample prediction request body:
+```json
+{
+  "cgpa": 8.2,
+  "internships": 2,
+  "placed": "Yes"
+}
+```
+
+## YouTube Demo
+- Demo video: ``
+
+## How To Install API Packages And Run The API
+1. Create and activate a virtual environment:
+```powershell
+python -m venv .venv
+.\.venv\Scripts\activate
+```
+
+2. Install the API packages:
+```powershell
+python -m pip install -r requirements.txt
+```
+
+3. Start the API:
+```powershell
+cd summative\api
+..\..\.venv\Scripts\python.exe -m uvicorn prediction:app --reload
+```
+
+4. Open Swagger UI locally:
+```text
+http://127.0.0.1:8000/docs
+```
+
+## Project Structure
+```text
+linear_regression_model/
+|-- README.md
+|-- requirements.txt
+`-- summative/
+    |-- api/
+    |   `-- prediction.py
+    |-- linear_regression/
+    |   |-- best_salary_model.joblib
+    |   `-- multivariate.ipynb
+    `-- FlutterApp/
+        |-- lib/
+        |   |-- models/
+        |   |-- screens/
+        |   |-- services/
+        |   |-- theme/
+        |   |-- widgets/
+        |   |-- config.dart
+        |   `-- main.dart
+        `-- pubspec.yaml
+```
+
+## App Screenshot
+Add your mobile app screenshot below before submission.
+
+![App Screenshot](PATH_OR_GITHUB_IMAGE_LINK_HERE)
+
+## How To Run The Mobile App
+1. Make sure the API is running locally or deployed publicly.
+
+2. Open the Flutter project:
+```powershell
+cd summative\FlutterApp
+```
+
+3. Run the app against your public API:
+```powershell
+flutter run --dart-define=API_BASE_URL=
+```
+
+4. If you are testing locally on an Android emulator:
+```powershell
+flutter run --dart-define=API_BASE_URL=http://10.0.2.2:8000
+```
