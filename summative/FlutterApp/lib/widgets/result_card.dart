@@ -5,6 +5,7 @@ class ResultCard extends StatelessWidget {
     super.key,
     required this.message,
     required this.isError,
+    this.onClose,
     this.predictedSalary,
     this.salaryUnit,
     this.cgpa,
@@ -14,6 +15,7 @@ class ResultCard extends StatelessWidget {
 
   final String message;
   final bool isError;
+  final VoidCallback? onClose;
   final double? predictedSalary;
   final String? salaryUnit;
   final double? cgpa;
@@ -26,31 +28,51 @@ class ResultCard extends StatelessWidget {
     final hasPrediction = !isError && predictedSalary != null;
 
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
       decoration: BoxDecoration(
-        color: isError
-            ? const Color(0xFFFFF1F2)
-            : const Color(0xFFEEF8F5),
-        borderRadius: BorderRadius.circular(24),
+        gradient: isError
+            ? const LinearGradient(
+                colors: [Color(0xFFFFF4F5), Color(0xFFFFECEE)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              )
+            : const LinearGradient(
+                colors: [Color(0xFFF7FFFD), Color(0xFFEAF9F4)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+        borderRadius: const BorderRadius.vertical(
+          top: Radius.circular(30),
+          bottom: Radius.circular(24),
+        ),
         border: Border.all(
           color: isError
               ? const Color(0xFFF4B7BE)
               : const Color(0xFFB8E0D6),
         ),
-        boxShadow: hasPrediction
-            ? const [
-                BoxShadow(
-                  color: Color(0x140F766E),
-                  blurRadius: 20,
-                  offset: Offset(0, 10),
-                ),
-              ]
-            : null,
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x220F172A),
+            blurRadius: 30,
+            offset: Offset(0, 14),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
+          Center(
+            child: Container(
+              width: 54,
+              height: 5,
+              decoration: BoxDecoration(
+                color: const Color(0xFFBFD4CD),
+                borderRadius: BorderRadius.circular(999),
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
           Row(
             children: [
               Container(
@@ -118,6 +140,30 @@ class ResultCard extends StatelessWidget {
                   ? const Color(0xFF8C2332)
                   : const Color(0xFF164E43),
               height: 1.5,
+            ),
+          ),
+          const SizedBox(height: 22),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton(
+              onPressed: onClose,
+              style: FilledButton.styleFrom(
+                backgroundColor: isError
+                    ? const Color(0xFFB42333)
+                    : const Color(0xFF0F766E),
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18),
+                ),
+              ),
+              child: Text(
+                isError ? 'Back To Form' : 'Done',
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
           ),
         ],

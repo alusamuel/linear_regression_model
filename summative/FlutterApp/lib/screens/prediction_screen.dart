@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import '../models/prediction_request.dart';
@@ -128,45 +130,62 @@ class _PredictionScreenState extends State<PredictionScreen> {
 
     await showGeneralDialog<void>(
       context: context,
-      barrierDismissible: true,
+      barrierDismissible: false,
       barrierLabel: 'Prediction result',
-      barrierColor: const Color(0x99112312),
-      transitionDuration: const Duration(milliseconds: 320),
+      barrierColor: Colors.transparent,
+      transitionDuration: const Duration(milliseconds: 380),
       pageBuilder: (context, animation, secondaryAnimation) {
         return SafeArea(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 420),
-                child: Material(
-                  color: Colors.transparent,
-                  child: ResultCard(
-                    message: _message,
-                    isError: _isError,
-                    predictedSalary: _predictedSalary,
-                    salaryUnit: _salaryUnit,
-                    cgpa: _submittedCgpa,
-                    internships: _submittedInternships,
-                    placed: _submittedPlaced,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                  child: Container(
+                    color: const Color(0x660B1120),
                   ),
                 ),
               ),
-            ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 20),
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 520),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: ResultCard(
+                        message: _message,
+                        isError: _isError,
+                        predictedSalary: _predictedSalary,
+                        salaryUnit: _salaryUnit,
+                        cgpa: _submittedCgpa,
+                        internships: _submittedInternships,
+                        placed: _submittedPlaced,
+                        onClose: () => Navigator.of(context).pop(),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         );
       },
       transitionBuilder: (context, animation, secondaryAnimation, child) {
         final curved = CurvedAnimation(
           parent: animation,
-          curve: Curves.easeOutBack,
+          curve: Curves.easeOutCubic,
           reverseCurve: Curves.easeIn,
         );
 
         return FadeTransition(
           opacity: animation,
-          child: ScaleTransition(
-            scale: Tween<double>(begin: 0.82, end: 1.0).animate(curved),
+          child: SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(0, 0.2),
+              end: Offset.zero,
+            ).animate(curved),
             child: child,
           ),
         );
