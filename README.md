@@ -77,7 +77,6 @@ linear_regression_model/
 ```
 
 ## App Screenshot
-Add your mobile app screenshot below before submission.
 
 <img src="https://res.cloudinary.com/dy2opnabf/image/upload/v1774804443/Screenshot_20260329_185241_sn2t7o.png" width="50%"/>
 
