@@ -73,7 +73,7 @@ linear_regression_model/
 ## App Screenshot
 Add your mobile app screenshot below before submission.
 
-![App Screenshot](PATH_OR_GITHUB_IMAGE_LINK_HERE)
+![App Screenshot](https://asset.cloudinary.com/dy2opnabf/418290aaedd207d93475fdf9ae80ef3d)
 
 ## How To Run The Mobile App
 1. Make sure the API is running locally or deployed publicly.
