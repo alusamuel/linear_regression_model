@@ -1,9 +1,15 @@
 # Student Salary Prediction
 
 ## Mission And Problem
-The goal of this project is to help students understand how academic performance and internship experience relate to salary outcomes.  
-Many students do not have accessible tools that connect their academic progress to employability.  
-This project provides a salary prediction API and a mobile app for simple access to those insights.  
+
+My mission is to endure that all students have qual opportunities by removing barriers to again access to all necessary resources for learning successfully.
+
+The goal of this project is to help students understand how academic performance and internship experience relate to salary outcomes.
+
+Many students do not have accessible tools that connect their academic progress to employability.
+
+This project provides a salary prediction API and a mobile app for simple access to those insights.
+
 It combines a FastAPI backend with a Flutter mobile interface.
 
 ## Public API Endpoint
