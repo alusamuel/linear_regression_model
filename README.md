@@ -21,7 +21,7 @@ Sample prediction request body:
 ```
 
 ## YouTube Demo
-- Demo video: ``
+- Demo video: `https://youtu.be/RythTRWQdbc`
 
 ## How To Install API Packages And Run The API
 1. Create and activate a virtual environment:
